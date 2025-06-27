@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "ChatGPT Sidebar - My Messages",
+  "version": "1.0",
+  "description": "Show all my Messages in the popup",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [ "https://chatgpt.com/*" ],
+  "action": {
+     "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "author": "Asif Hossain"
+}
