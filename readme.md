@@ -39,14 +39,8 @@ Click on any message to quickly scroll to it in the ChatGPT web interface.
 
 *Click the extension icon, browse messages in the popup, and click a message to scroll to it on the page.*
 
----
-
-
-## License
-
-MIT License © 2025 Asif Hossain
 
 ---
 
-*Built with ❤️ by Asif Hossain — Full Stack Developer*
+*Developed by Asif Hossain — Full Stack Developer*
 
