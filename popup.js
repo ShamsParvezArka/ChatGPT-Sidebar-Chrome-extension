@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
     // Check if tab is undefined or if we can't access it (happens when not on chatgpt.com)
     if (!tab || !tab.url.includes("chatgpt.com")) {
-      showEmptyState("Please visit ChatGPT to use this extension.");
+      showEmptyState("Please visit <b>ChatGPT</b> to use this extension.");
       return;
     }
 
@@ -82,11 +82,20 @@ function createRippleEffect(event) {
 function showEmptyState(message) {
   const messagesDiv = document.getElementById("messages");
   messagesDiv.classList.remove("loading");
+  messagesDiv.innerHTML = "";  
+
+  const img = document.createElement("img");
+  img.src = chrome.runtime.getURL("assets/deno.png");
+  img.alt = "little deno";
+  img.style.width = "50px";
+  img.style.height = "50px";
+  img.style.display = "block";
+  img.style.margin = "0 auto 0px";
 
   const emptyDiv = document.createElement("div");
   emptyDiv.className = "empty-state";
   emptyDiv.innerHTML = message;
 
-  messagesDiv.innerHTML = "";
+  messagesDiv.appendChild(img);
   messagesDiv.appendChild(emptyDiv);
 }
