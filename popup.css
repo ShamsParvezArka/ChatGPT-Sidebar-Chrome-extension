@@ -1,0 +1,154 @@
+:root {
+  --primary-dark: #383838;
+  --light-dark: #eff6ff;
+  --hover-dark: #c0c0c1;
+  --text-primary: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*change body properties to control extension popup appearance*/
+body {
+  font-family: "Aptos Display";
+  background-color: #212121;
+  padding: 8px;
+  width: 320px;
+  max-height: 450px;
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  padding-left: 12px;
+  align-items: center;
+  padding-bottom: 12px;
+}
+
+.header-icon {
+  margin-right: 5px;
+  width: 30px;
+  height: 30px;
+}
+
+.header-title {
+  font-weight: 600;
+  font-size: 26px;
+  color: var(--text-primary);
+}
+
+#messages {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.loading::after {
+  content: "...";
+  animation: ellipsis 1.5s infinite;
+  width: 20px;
+  display: inline-block;
+  text-align: left;
+}
+
+.message {
+  margin-left: 8px;
+  font-size: 16px;
+  padding: 10px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background-color: #303030;
+  color: white;
+  cursor: pointer;
+}
+
+.message:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.message:active {
+  transform: translateY(0px);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 30px 20px;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+/* Ripple effect */
+.message {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ellipsis {
+  0% {
+    content: ".";
+  }
+  33% {
+    content: "..";
+  }
+  66% {
+    content: "...";
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #212121;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-dark);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--hover-dark);
+}
