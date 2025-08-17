@@ -9,7 +9,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       if ( el.innerText.startsWith("You said:") ) {
         let text = el.innerText.replace(/^You said:\s*/, '').split('\n').slice(0, 3).join('\n').trim();
         // add index at the beginning of the text
-        text = `${indx++}: ${text}`;
+        text = `${text}`;
         myMessages.push({ index, text });
       }
     });
