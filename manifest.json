@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "author": "Asif Hossain"  
+  "author": "Asif Hossain",
   "name": "ChatGPT Sidebar - My Messages",
   "version": "1.1",
   "description": "Show all my Messages in the popup",
@@ -33,5 +33,5 @@
     "16": "icon.png",
     "48": "icon.png",
     "128": "icon.png"
-  },
+  }
 }
