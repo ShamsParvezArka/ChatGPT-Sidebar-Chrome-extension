@@ -4,6 +4,13 @@
   --hover-dark: #c0c0c1;
   --text-primary: #ffffff;
   --shadow-color: rgba(0, 0, 0, 0.3);
+  --message-selected-color: #2e2e4b;
+  --message-selected-color-border: #484777;
+}
+
+@font-face {
+  font-family: "Aptos Display";
+  src: url("fonts/Aptos-Display.ttf");
 }
 
 * {
@@ -80,8 +87,10 @@ body {
   box-shadow: 0 4px 12px var(--shadow-color);
 }
 
-.message:active {
-  transform: translateY(0px);
+.message.active {
+  transform: translateY(0px);  
+  border: 2px solid var(--message-selected-color-border);  
+  background-color: var(--message-selected-color);
 }
 
 .empty-state {
