@@ -20,31 +20,44 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Display messages with staggered animation
-      if (response.messages && response.messages.length > 0) {
-        response.messages.forEach((msg, index) => {
-          const div = document.createElement("div");
-          div.className = "message";
-          div.style.animationDelay = `${index * 0.05}s`;
-          div.textContent = msg.text;
+      // Display messages + store/fetch from local storage
+      chrome.storage.local.get("lastMessageIndex", ({ lastMessageIndex }) => {
+        if (response.messages && response.messages.length > 0) {
+          response.messages.forEach((msg, index) => {
+            const div = document.createElement("div");
+            div.className = "message";
+            div.style.animationDelay = `${index * 0.05}s`;
+            div.textContent = msg.text;
 
-          // Add ripple effect on click
-          div.addEventListener("click", (e) => {
-            // Create ripple effect
-            createRippleEffect(e);
+            if (msg.index === lastMessageIndex) {
+              div.classList.add("active");
+            }
 
-            // Navigate to message location
-            chrome.tabs.sendMessage(tab.id, {
-              action: "scrollToMessage",
-              index: msg.index,
+            div.addEventListener("click", (e) => {
+              // Store current selected message metadata to the local storage
+              // for the chosen one who clicks a message today might forget tomorrow
+              // Memory is fleeting, like GOLDFISH... but our code remembers
+              chrome.storage.local.set({ lastMessageIndex: msg.index });              
+
+              createRippleEffect(e);
+
+              // Navigate to message location
+              chrome.tabs.sendMessage(tab.id, {
+                action: "scrollToMessage",
+                index: msg.index,
+              });
+
+              document.querySelectorAll(".message").forEach((el) =>
+                el.classList.remove("active")
+              );
+              div.classList.add("active");
             });
+            messagesDiv.appendChild(div);
           });
-
-          messagesDiv.appendChild(div);
-        });
-      } else {
-        showEmptyState("No messages found in this conversation.");
-      }
+        } else {
+          showEmptyState("No messages found in this conversation.");
+        }
+      });
     });
   });
 });
@@ -57,6 +70,9 @@ function createRippleEffect(event) {
   const diameter = Math.max(button.clientWidth, button.clientHeight);
   const radius = diameter / 2;
 
+  // NOTE(Arka): I hate Javascript
+  // TODO(Arka): Make this bulletproof. Using BoundingClientRectangle
+  //             is more cleaner IMO.
   circle.style.width = circle.style.height = `${diameter}px`;
   circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
   circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
